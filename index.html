@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prime Home Services — Calgary's Home Solutions Experts</title>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue-deep:    #0A2342;
+      --blue-primary: #1A4A8A;
+      --blue-mid:     #1E5FC0;
+      --blue-accent:  #2E8BFF;
+      --blue-light:   #EAF2FF;
+      --blue-pale:    #F4F8FF;
+      --white:        #FFFFFF;
+      --grey-soft:    #F7FAFD;
+      --text-dark:    #0D1F38;
+      --text-mid:     #3A5475;
+      --text-light:   #7A9BBE;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text-dark); background: var(--white); overflow-x: hidden; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 48px; height: 72px;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(10,35,66,0.06);
+      transition: box-shadow 0.3s;
+    }
+    nav.scrolled { box-shadow: 0 4px 24px rgba(10,35,66,0.09); }
+    .nav-logo { display: flex; flex-direction: column; gap: 0; line-height: 1; text-decoration: none; }
+    .nav-logo .wordmark { display: flex; align-items: baseline; gap: 6px; }
+    .nav-logo .w-prime { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: 22px; color: var(--blue-deep); letter-spacing: -0.02em; }
+    .nav-logo .w-home  { font-family: 'Outfit', sans-serif; font-weight: 300; font-size: 22px; color: var(--blue-primary); letter-spacing: -0.01em; }
+    .nav-logo .w-badge { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--white); background: var(--blue-accent); padding: 2px 6px; border-radius: 3px; }
+    .nav-logo .w-tag   { font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--text-light); margin-top: 2px; }
+    .nav-right { display: flex; align-items: center; gap: 32px; }
+    .nav-links { display: flex; align-items: center; gap: 32px; list-style: none; }
+    .nav-links a { text-decoration: none; font-size: 14px; font-weight: 400; color: var(--text-mid); transition: color 0.2s; }
+    .nav-links a:hover { color: var(--blue-mid); }
+    .nav-cta { background: var(--blue-mid); color: var(--white) !important; padding: 10px 22px; border-radius: 8px; font-weight: 500 !important; transition: background 0.2s, transform 0.2s !important; }
+    .nav-cta:hover { background: var(--blue-primary) !important; transform: translateY(-1px); }
+
+    /* ── LANGUAGE TOGGLE ── */
+    .lang-toggle {
+      display: flex; align-items: center;
+      background: var(--blue-pale);
+      border: 1.5px solid #D0DDEF;
+      border-radius: 8px;
+      overflow: hidden;
+      font-family: 'Outfit', sans-serif;
+    }
+    .lang-btn {
+      padding: 7px 13px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      border: none;
+      background: transparent;
+      color: var(--text-light);
+      transition: all 0.2s;
+    }
+    .lang-btn.active {
+      background: var(--blue-mid);
+      color: white;
+    }
+    .lang-divider { width: 1px; height: 20px; background: #D0DDEF; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr;
+      padding-top: 72px; background: var(--blue-deep); position: relative; overflow: hidden;
+    }
+    .hero-bg-pattern {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        radial-gradient(circle at 70% 20%, rgba(46,139,255,0.15) 0%, transparent 50%),
+        radial-gradient(circle at 20% 80%, rgba(30,95,192,0.20) 0%, transparent 45%);
+    }
+    .hero-grid-lines {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+    }
+    .hero-left { display: flex; flex-direction: column; justify-content: center; padding: 80px 64px 80px 80px; position: relative; z-index: 2; }
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(46,139,255,0.15); border: 1px solid rgba(46,139,255,0.30);
+      color: #7EC8FF; font-size: 11px; font-weight: 500; letter-spacing: 0.18em;
+      text-transform: uppercase; padding: 7px 14px; border-radius: 100px;
+      margin-bottom: 32px; width: fit-content; animation: fadeUp 0.8s ease both;
+    }
+    .hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #2E8BFF; animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
+    .hero-title { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(40px,5vw,62px); line-height: 1.05; color: var(--white); letter-spacing: -0.03em; margin-bottom: 24px; animation: fadeUp 0.8s ease 0.1s both; }
+    .hero-title .accent { color: var(--blue-accent); font-weight: 300; display: block; }
+    .hero-sub { font-size: 17px; font-weight: 300; line-height: 1.7; color: rgba(255,255,255,0.60); max-width: 440px; margin-bottom: 44px; animation: fadeUp 0.8s ease 0.2s both; }
+    .hero-actions { display: flex; gap: 16px; align-items: center; animation: fadeUp 0.8s ease 0.3s both; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--blue-accent); color: var(--white); text-decoration: none; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 15px; padding: 16px 32px; border-radius: 10px; transition: all 0.25s; }
+    .btn-primary:hover { background: #1A7AEE; transform: translateY(-2px); box-shadow: 0 12px 32px rgba(46,139,255,0.35); }
+    .btn-secondary { display: inline-flex; align-items: center; gap: 8px; color: rgba(255,255,255,0.70); text-decoration: none; font-size: 15px; padding: 16px 24px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.15); transition: all 0.25s; }
+    .btn-secondary:hover { color: white; border-color: rgba(255,255,255,0.35); background: rgba(255,255,255,0.06); }
+    .hero-stats { display: flex; gap: 40px; margin-top: 56px; padding-top: 40px; border-top: 1px solid rgba(255,255,255,0.10); animation: fadeUp 0.8s ease 0.4s both; }
+    .stat-item { display: flex; flex-direction: column; gap: 4px; }
+    .stat-num { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 28px; color: var(--white); letter-spacing: -0.02em; }
+    .stat-label { font-size: 12px; color: rgba(255,255,255,0.45); letter-spacing: 0.05em; }
+    .hero-right { display: flex; align-items: center; justify-content: center; padding: 80px 80px 80px 40px; position: relative; z-index: 2; }
+    .hero-card-stack { position: relative; width: 100%; max-width: 400px; }
+    .hero-main-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10); backdrop-filter: blur(20px); border-radius: 24px; padding: 40px; animation: fadeUp 0.8s ease 0.2s both; }
+    .booking-title { font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 20px; color: var(--white); margin-bottom: 6px; }
+    .booking-sub { font-size: 13px; color: rgba(255,255,255,0.45); margin-bottom: 28px; }
+    .form-group { display: flex; flex-direction: column; gap: 12px; margin-bottom: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .form-input { width: 100%; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 10px; padding: 14px 16px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: white; outline: none; transition: border-color 0.2s, background 0.2s; }
+    .form-input::placeholder { color: rgba(255,255,255,0.30); }
+    .form-input:focus { border-color: var(--blue-accent); background: rgba(46,139,255,0.08); }
+    select.form-input option { background: var(--blue-deep); color: white; }
+    .form-submit { width: 100%; background: var(--blue-accent); color: white; border: none; border-radius: 10px; padding: 16px; font-family: 'Outfit', sans-serif; font-weight: 600; font-size: 15px; cursor: pointer; transition: all 0.25s; margin-top: 4px; }
+    .form-submit:hover { background: #1A7AEE; transform: translateY(-1px); box-shadow: 0 8px 24px rgba(46,139,255,0.35); }
+    .trust-badges { display: flex; gap: 16px; margin-top: 20px; justify-content: center; }
+    .trust-badge { display: flex; align-items: center; gap: 6px; font-size: 11px; color: rgba(255,255,255,0.40); }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── SECTIONS ── */
+    #services  { padding: 120px 80px; background: var(--white); }
+    #why       { padding: 120px 80px; background: var(--blue-pale); position: relative; overflow: hidden; }
+    #how       { padding: 120px 80px; background: var(--white); }
+    #testimonials { padding: 120px 80px; background: var(--blue-deep); position: relative; overflow: hidden; }
+    #pricing   { padding: 120px 80px; background: var(--grey-soft); }
+    #area      { padding: 120px 80px; background: white; }
+    #contact   { padding: 120px 80px; background: var(--blue-deep); position: relative; overflow: hidden; }
+
+    #why::before { content:''; position:absolute; right:-120px; top:-120px; width:500px; height:500px; border-radius:50%; background:radial-gradient(circle,rgba(46,139,255,0.06) 0%,transparent 70%); pointer-events:none; }
+    #testimonials::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle at 15% 50%,rgba(46,139,255,0.12) 0%,transparent 45%),radial-gradient(circle at 85% 20%,rgba(30,95,192,0.18) 0%,transparent 40%); pointer-events:none; }
+    #contact::before { content:''; position:absolute; inset:0; background-image:radial-gradient(circle at 80% 50%,rgba(46,139,255,0.10) 0%,transparent 50%),linear-gradient(rgba(255,255,255,0.02) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.02) 1px,transparent 1px); background-size:auto,60px 60px,60px 60px; pointer-events:none; }
+
+    .section-header { text-align: center; margin-bottom: 72px; }
+    .section-tag { display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.20em; text-transform: uppercase; color: var(--blue-accent); background: var(--blue-light); padding: 6px 16px; border-radius: 100px; margin-bottom: 20px; }
+    .section-title { font-family: 'Outfit', sans-serif; font-weight: 800; font-size: clamp(30px,4vw,46px); color: var(--blue-deep); letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 16px; }
+    .section-sub { font-size: 17px; font-weight: 300; color: var(--text-mid); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+    #testimonials .section-title { color: white; }
+    #testimonials .section-tag { background: rgba(46,139,255,0.20); color: #7EC8FF; }
+    #testimonials .section-sub { color: rgba(255,255,255,0.50); }
+
+    /* SERVICES */
+    .services-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; max-width: 1100px; margin: 0 auto; }
+    .service-card { border: 1.5px solid #E8EFF8; border-radius: 20px; padding: 40px 36px; position: relative; transition: all 0.3s; overflow: hidden; }
+    .service-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--blue-mid),var(--blue-accent)); opacity:0; transition:opacity 0.3s; }
+    .service-card:hover { border-color:transparent; box-shadow:0 16px 48px rgba(10,35,66,0.10); transform:translateY(-4px); }
+    .service-card:hover::before { opacity:1; }
+    .service-card.featured { background:var(--blue-deep); border-color:transparent; }
+    .service-card.featured::before { opacity:1; }
+    .service-icon { width:52px; height:52px; border-radius:14px; background:var(--blue-light); display:flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:24px; }
+    .service-card.featured .service-icon { background:rgba(46,139,255,0.20); }
+    .service-badge { position:absolute; top:24px; right:24px; font-family:'Outfit',sans-serif; font-size:10px; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:white; background:var(--blue-accent); padding:4px 10px; border-radius:100px; }
+    .service-name { font-family:'Outfit',sans-serif; font-weight:700; font-size:22px; color:var(--blue-deep); margin-bottom:12px; letter-spacing:-0.01em; }
+    .service-card.featured .service-name { color:white; }
+    .service-desc { font-size:14px; line-height:1.7; color:var(--text-mid); margin-bottom:28px; }
+    .service-card.featured .service-desc { color:rgba(255,255,255,0.55); }
+    .service-includes { list-style:none; display:flex; flex-direction:column; gap:10px; margin-bottom:32px; }
+    .service-includes li { display:flex; align-items:center; gap:10px; font-size:13.5px; color:var(--text-mid); }
+    .service-card.featured .service-includes li { color:rgba(255,255,255,0.65); }
+    .service-includes li::before { content:''; width:18px; height:18px; border-radius:50%; background:var(--blue-light); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%231E5FC0' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); background-size:11px; background-repeat:no-repeat; background-position:center; flex-shrink:0; }
+    .service-card.featured .service-includes li::before { background-color:rgba(46,139,255,0.25); background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232E8BFF' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E"); }
+    .service-price { display:flex; align-items:baseline; gap:4px; margin-bottom:20px; }
+    .price-from { font-size:12px; color:var(--text-light); }
+    .price-num { font-family:'Outfit',sans-serif; font-weight:700; font-size:32px; color:var(--blue-deep); letter-spacing:-0.02em; }
+    .service-card.featured .price-num { color:white; }
+    .price-unit { font-size:13px; color:var(--text-light); }
+    .service-card.featured .price-from, .service-card.featured .price-unit { color:rgba(255,255,255,0.40); }
+    .btn-service { display:inline-flex; align-items:center; justify-content:center; gap:8px; width:100%; padding:14px; border-radius:10px; border:1.5px solid #D0DDEF; background:transparent; color:var(--blue-primary); font-family:'Outfit',sans-serif; font-weight:600; font-size:14px; cursor:pointer; text-decoration:none; transition:all 0.25s; }
+    .btn-service:hover { background:var(--blue-light); border-color:var(--blue-accent); color:var(--blue-mid); }
+    .service-card.featured .btn-service { background:var(--blue-accent); border-color:var(--blue-accent); color:white; }
+    .service-card.featured .btn-service:hover { background:#1A7AEE; }
+
+    /* WHY */
+    .why-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; max-width:1100px; margin:0 auto; }
+    .why-features { display:grid; grid-template-columns:1fr 1fr; gap:24px; }
+    .why-card { background:white; border-radius:18px; padding:28px 24px; box-shadow:0 2px 16px rgba(10,35,66,0.05); transition:all 0.3s; }
+    .why-card:hover { transform:translateY(-3px); box-shadow:0 8px 32px rgba(10,35,66,0.09); }
+    .why-card:first-child { background:var(--blue-deep); grid-column:span 2; display:flex; align-items:center; gap:20px; }
+    .why-icon { font-size:28px; margin-bottom:14px; display:block; }
+    .why-card:first-child .why-icon { margin-bottom:0; font-size:32px; }
+    .why-card-title { font-family:'Outfit',sans-serif; font-weight:700; font-size:16px; color:var(--blue-deep); margin-bottom:8px; }
+    .why-card:first-child .why-card-title { color:white; font-size:18px; }
+    .why-card-text { font-size:13.5px; line-height:1.65; color:var(--text-mid); }
+    .why-card:first-child .why-card-text { color:rgba(255,255,255,0.55); }
+    .why-text-side { padding-right:40px; }
+    .why-promise { background:white; border-radius:20px; padding:36px; margin-top:36px; border:1.5px solid #E8EFF8; }
+    .promise-title { font-family:'Outfit',sans-serif; font-weight:700; font-size:17px; color:var(--blue-deep); margin-bottom:16px; }
+    .promise-list { list-style:none; display:flex; flex-direction:column; gap:12px; }
+    .promise-list li { display:flex; align-items:flex-start; gap:12px; font-size:14px; color:var(--text-mid); line-height:1.5; }
+    .promise-list li::before { content:'✓'; color:var(--blue-accent); font-weight:700; font-size:15px; flex-shrink:0; margin-top:1px; }
+
+    /* HOW */
+    .steps-row { display:grid; grid-template-columns:repeat(3,1fr); gap:0; max-width:900px; margin:0 auto; position:relative; }
+    .steps-row::before { content:''; position:absolute; top:36px; left:16%; right:16%; height:1.5px; background:linear-gradient(90deg,var(--blue-accent),var(--blue-mid),var(--blue-accent)); opacity:0.25; }
+    .step { display:flex; flex-direction:column; align-items:center; text-align:center; padding:0 32px; }
+    .step-num { width:72px; height:72px; border-radius:50%; border:2px solid #D0DDEF; background:white; display:flex; align-items:center; justify-content:center; font-family:'Outfit',sans-serif; font-weight:800; font-size:22px; color:var(--blue-mid); margin-bottom:28px; position:relative; z-index:1; transition:all 0.3s; }
+    .step:hover .step-num { background:var(--blue-mid); color:white; border-color:var(--blue-mid); transform:scale(1.08); }
+    .step-emoji { font-size:28px; margin-bottom:6px; }
+    .step-title { font-family:'Outfit',sans-serif; font-weight:700; font-size:18px; color:var(--blue-deep); margin-bottom:10px; }
+    .step-text { font-size:14px; line-height:1.7; color:var(--text-mid); }
+
+    /* TESTIMONIALS */
+    .testimonials-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1100px; margin:0 auto; }
+    .testimonial-card { background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:20px; padding:36px 32px; transition:all 0.3s; }
+    .testimonial-card:hover { background:rgba(255,255,255,0.08); transform:translateY(-4px); }
+    .stars { display:flex; gap:3px; margin-bottom:20px; }
+    .star { color:#FFB800; font-size:15px; }
+    .testimonial-text { font-size:15px; line-height:1.75; color:rgba(255,255,255,0.70); margin-bottom:28px; font-style:italic; }
+    .testimonial-author { display:flex; align-items:center; gap:14px; }
+    .author-avatar { width:44px; height:44px; border-radius:50%; background:linear-gradient(135deg,var(--blue-mid),var(--blue-accent)); display:flex; align-items:center; justify-content:center; font-family:'Outfit',sans-serif; font-weight:700; font-size:16px; color:white; flex-shrink:0; }
+    .author-name { font-family:'Outfit',sans-serif; font-weight:600; font-size:15px; color:white; }
+    .author-loc { font-size:12px; color:rgba(255,255,255,0.35); margin-top:2px; }
+
+    /* PRICING */
+    .pricing-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:24px; max-width:1000px; margin:0 auto; }
+    .pricing-card { background:white; border-radius:20px; padding:40px 32px; border:1.5px solid #E8EFF8; position:relative; transition:all 0.3s; }
+    .pricing-card:hover { transform:translateY(-4px); box-shadow:0 16px 48px rgba(10,35,66,0.09); }
+    .pricing-card.popular { background:var(--blue-primary); border-color:transparent; transform:scale(1.03); }
+    .pricing-card.popular:hover { transform:scale(1.03) translateY(-4px); }
+    .popular-tag { position:absolute; top:-14px; left:50%; transform:translateX(-50%); background:var(--blue-accent); color:white; font-family:'Outfit',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.12em; text-transform:uppercase; padding:5px 16px; border-radius:100px; white-space:nowrap; }
+    .plan-name { font-family:'Outfit',sans-serif; font-weight:700; font-size:18px; color:var(--blue-deep); margin-bottom:6px; }
+    .pricing-card.popular .plan-name { color:white; }
+    .plan-desc { font-size:13px; color:var(--text-light); margin-bottom:28px; line-height:1.5; }
+    .pricing-card.popular .plan-desc { color:rgba(255,255,255,0.50); }
+    .plan-price { display:flex; align-items:baseline; gap:4px; margin-bottom:28px; }
+    .plan-currency { font-family:'Outfit',sans-serif; font-weight:600; font-size:20px; color:var(--blue-mid); }
+    .pricing-card.popular .plan-currency { color:rgba(255,255,255,0.70); }
+    .plan-amount { font-family:'Outfit',sans-serif; font-weight:800; font-size:44px; color:var(--blue-deep); letter-spacing:-0.03em; line-height:1; }
+    .pricing-card.popular .plan-amount { color:white; }
+    .plan-freq { font-size:13px; color:var(--text-light); }
+    .pricing-card.popular .plan-freq { color:rgba(255,255,255,0.45); }
+    .plan-divider { height:1px; background:#EEF3FA; margin-bottom:24px; }
+    .pricing-card.popular .plan-divider { background:rgba(255,255,255,0.12); }
+    .plan-features { list-style:none; display:flex; flex-direction:column; gap:12px; margin-bottom:32px; }
+    .plan-features li { display:flex; align-items:center; gap:10px; font-size:13.5px; color:var(--text-mid); }
+    .pricing-card.popular .plan-features li { color:rgba(255,255,255,0.70); }
+    .plan-features li::before { content:'✓'; color:var(--blue-accent); font-weight:700; font-size:14px; flex-shrink:0; }
+    .btn-plan { display:block; width:100%; text-align:center; padding:15px; border-radius:10px; font-family:'Outfit',sans-serif; font-weight:600; font-size:15px; text-decoration:none; border:1.5px solid #D0DDEF; color:var(--blue-primary); background:transparent; cursor:pointer; transition:all 0.25s; }
+    .btn-plan:hover { background:var(--blue-light); border-color:var(--blue-accent); }
+    .pricing-card.popular .btn-plan { background:var(--blue-accent); border-color:var(--blue-accent); color:white; }
+    .pricing-card.popular .btn-plan:hover { background:#1A7AEE; }
+
+    /* AREA */
+    .area-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center; max-width:1100px; margin:0 auto; }
+    .area-text-side { padding-right:20px; }
+    .neighborhoods { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:32px; }
+    .neighborhood { display:flex; align-items:center; gap:8px; padding:10px 14px; background:var(--blue-pale); border-radius:8px; font-size:13.5px; color:var(--text-mid); transition:all 0.2s; }
+    .neighborhood:hover { background:var(--blue-light); color:var(--blue-primary); }
+    .neighborhood::before { content:'📍'; font-size:12px; }
+    .map-placeholder { background:var(--blue-pale); border-radius:24px; aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:16px; border:1.5px solid #E0EAF8; position:relative; overflow:hidden; }
+    .map-placeholder::before { content:''; position:absolute; inset:0; background-image:linear-gradient(rgba(30,95,192,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(30,95,192,0.04) 1px,transparent 1px); background-size:30px 30px; }
+    .map-icon { font-size:56px; position:relative; z-index:1; }
+    .map-text { font-family:'Outfit',sans-serif; font-weight:600; font-size:18px; color:var(--blue-primary); position:relative; z-index:1; }
+    .map-sub { font-size:13px; color:var(--text-light); position:relative; z-index:1; }
+
+    /* CONTACT */
+    .contact-grid { display:grid; grid-template-columns:1fr 1.2fr; gap:80px; align-items:start; max-width:1000px; margin:0 auto; position:relative; z-index:1; }
+    .contact-title { font-family:'Outfit',sans-serif; font-weight:800; font-size:clamp(30px,4vw,46px); color:white; letter-spacing:-0.025em; line-height:1.1; margin-bottom:20px; }
+    .contact-sub { font-size:16px; font-weight:300; color:rgba(255,255,255,0.55); line-height:1.7; margin-bottom:44px; }
+    .contact-methods { display:flex; flex-direction:column; gap:16px; }
+    .contact-method { display:flex; align-items:center; gap:16px; padding:18px 20px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.08); border-radius:14px; text-decoration:none; transition:all 0.25s; }
+    .contact-method:hover { background:rgba(255,255,255,0.09); border-color:rgba(46,139,255,0.40); transform:translateX(4px); }
+    .method-icon { width:44px; height:44px; border-radius:12px; background:rgba(46,139,255,0.20); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; }
+    .method-label { font-size:11px; color:rgba(255,255,255,0.35); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:3px; }
+    .method-value { font-family:'Outfit',sans-serif; font-weight:600; font-size:16px; color:white; }
+    .contact-form { background:rgba(255,255,255,0.04); border:1px solid rgba(255,255,255,0.08); border-radius:24px; padding:44px 40px; }
+    .contact-form-title { font-family:'Outfit',sans-serif; font-weight:700; font-size:20px; color:white; margin-bottom:28px; }
+    .contact-form .form-group { display:flex; flex-direction:column; gap:14px; margin-bottom:0; }
+    .contact-form .form-input { background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.10); }
+    textarea.form-input { resize:vertical; min-height:110px; }
+    .contact-form .form-submit { margin-top:8px; }
+
+    /* FOOTER */
+    footer { background:#050F1E; padding:56px 80px 36px; }
+    .footer-top { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:48px; margin-bottom:48px; padding-bottom:48px; border-bottom:1px solid rgba(255,255,255,0.06); }
+    .footer-brand-desc { font-size:14px; color:rgba(255,255,255,0.35); line-height:1.7; margin-top:16px; max-width:240px; }
+    .footer-col-title { font-family:'Outfit',sans-serif; font-weight:600; font-size:13px; color:rgba(255,255,255,0.60); letter-spacing:0.12em; text-transform:uppercase; margin-bottom:20px; }
+    .footer-links { list-style:none; display:flex; flex-direction:column; gap:12px; }
+    .footer-links a { text-decoration:none; font-size:14px; color:rgba(255,255,255,0.35); transition:color 0.2s; }
+    .footer-links a:hover { color:rgba(255,255,255,0.75); }
+    .footer-bottom { display:flex; align-items:center; justify-content:space-between; }
+    .footer-copy { font-size:13px; color:rgba(255,255,255,0.25); }
+    .footer-socials { display:flex; gap:12px; }
+    .social-btn { width:36px; height:36px; border-radius:8px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.08); display:flex; align-items:center; justify-content:center; text-decoration:none; font-size:15px; transition:all 0.2s; }
+    .social-btn:hover { background:rgba(46,139,255,0.20); border-color:rgba(46,139,255,0.40); }
+
+    /* ── CAREERS ── */
+    #careers {
+      padding: 120px 80px;
+      background: var(--blue-deep);
+      position: relative;
+      overflow: hidden;
+    }
+    .careers-bg {
+      position: absolute; inset: 0; pointer-events: none;
+      background-image:
+        radial-gradient(circle at 90% 10%, rgba(46,139,255,0.12) 0%, transparent 45%),
+        radial-gradient(circle at 10% 90%, rgba(30,95,192,0.15) 0%, transparent 40%),
+        linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px);
+      background-size: auto, auto, 60px 60px, 60px 60px;
+    }
+    .careers-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 72px;
+      align-items: start;
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+    #careers .section-tag { background: rgba(46,139,255,0.20); color: #7EC8FF; }
+    #careers .section-title { color: white; }
+    #careers .section-sub { color: rgba(255,255,255,0.55); }
+
+    .perks-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 36px;
+    }
+    .perk-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 22px 20px;
+      transition: all 0.3s;
+    }
+    .perk-card:hover {
+      background: rgba(255,255,255,0.08);
+      transform: translateY(-2px);
+    }
+    .perk-icon { font-size: 26px; display: block; margin-bottom: 10px; }
+    .perk-title { font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 15px; color: white; margin-bottom: 6px; }
+    .perk-text { font-size: 13px; color: rgba(255,255,255,0.50); line-height: 1.5; }
+
+    .positions-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 18px;
+      padding: 28px;
+      margin-top: 28px;
+    }
+    .positions-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      color: white;
+      margin-bottom: 18px;
+    }
+    .positions-list { display: flex; flex-direction: column; gap: 12px; }
+    .position-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px;
+      transition: all 0.2s;
+    }
+    .position-item:hover { background: rgba(255,255,255,0.08); }
+    .position-name { font-size: 14px; color: rgba(255,255,255,0.80); font-weight: 500; }
+    .position-badge {
+      font-family: 'Outfit', sans-serif;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 100px;
+      background: rgba(46,139,255,0.25);
+      color: #7EC8FF;
+      white-space: nowrap;
+    }
+    .position-badge.future {
+      background: rgba(255,255,255,0.08);
+      color: rgba(255,255,255,0.40);
+    }
+
+    /* APPLY FORM */
+    .apply-form-card {
+      background: white;
+      border-radius: 24px;
+      padding: 44px 40px;
+      box-shadow: 0 24px 64px rgba(0,0,0,0.25);
+    }
+    .apply-form-title {
+      font-family: 'Outfit', sans-serif;
+      font-weight: 800;
+      font-size: 24px;
+      color: var(--blue-deep);
+      margin-bottom: 8px;
+      letter-spacing: -0.02em;
+    }
+    .apply-form-sub {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+    .apply-form-body { display: flex; flex-direction: column; gap: 16px; }
+    .form-row-apply { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .apply-field { display: flex; flex-direction: column; gap: 6px; }
+    .apply-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-mid);
+      letter-spacing: 0.04em;
+    }
+    .apply-input {
+      width: 100%;
+      background: var(--blue-pale);
+      border: 1.5px solid #E0EAF8;
+      border-radius: 10px;
+      padding: 13px 15px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      color: var(--text-dark);
+      outline: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .apply-input::placeholder { color: var(--text-light); }
+    .apply-input:focus { border-color: var(--blue-accent); background: white; }
+    select.apply-input option { background: white; color: var(--text-dark); }
+    textarea.apply-input { resize: vertical; min-height: 90px; }
+
+    .file-upload-area {
+      border: 2px dashed #C8DAFA;
+      border-radius: 12px;
+      background: var(--blue-pale);
+      transition: all 0.25s;
+      cursor: pointer;
+      overflow: hidden;
+    }
+    .file-upload-area:hover { border-color: var(--blue-accent); background: var(--blue-light); }
+    .file-upload-area.has-file { border-color: #22C55E; background: #F0FDF4; border-style: solid; }
+    .file-upload-content { display: flex; flex-direction: column; align-items: center; padding: 24px 16px; gap: 6px; }
+    .file-upload-icon { font-size: 28px; }
+    .file-upload-text { font-size: 13.5px; font-weight: 500; color: var(--blue-primary); }
+    .file-upload-sub { font-size: 11px; color: var(--text-light); }
+    .file-name-display { font-size: 12px; color: #16A34A; font-weight: 500; text-align: center; padding: 0 16px 12px; display: none; }
+    .file-name-display.visible { display: block; }
+
+    .apply-submit {
+      width: 100%;
+      background: var(--blue-mid);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 16px;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-top: 4px;
+      letter-spacing: 0.01em;
+    }
+    .apply-submit:hover {
+      background: var(--blue-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(30,95,192,0.30);
+    }
+    .apply-privacy {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-light);
+      margin-top: -4px;
+    }
+
+    @media(max-width:900px){
+      #careers { padding: 80px 24px; }
+      .careers-inner { grid-template-columns: 1fr; gap: 48px; }
+      .perks-grid { grid-template-columns: 1fr 1fr; }
+      .apply-form-card { padding: 32px 24px; }
+      .form-row-apply { grid-template-columns: 1fr; }
+    }
+
+    /* SCROLL REVEAL */
+    .reveal { opacity:0; transform:translateY(28px); transition:opacity 0.7s ease,transform 0.7s ease; }
+    .reveal.visible { opacity:1; transform:translateY(0); }
+
+    @media(max-width:900px){
+      nav{padding:0 24px;}
+      .nav-links{display:none;}
+      #hero{grid-template-columns:1fr;}
+      .hero-right{display:none;}
+      .hero-left{padding:60px 24px;}
+      #services,#why,#how,#testimonials,#pricing,#area,#contact,footer{padding:80px 24px;}
+      .services-grid,.testimonials-grid,.pricing-grid{grid-template-columns:1fr;}
+      .pricing-card.popular{transform:none;}
+      .why-grid,.area-grid,.contact-grid{grid-template-columns:1fr;gap:48px;}
+      .footer-top{grid-template-columns:1fr 1fr;gap:32px;}
+      .steps-row{grid-template-columns:1fr;}
+      .steps-row::before{display:none;}
+      .why-features{grid-template-columns:1fr;}
+      .why-card:first-child{grid-column:span 1;flex-direction:column;}
+      .neighborhoods{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAV ── -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <div class="wordmark">
+        <span class="w-prime">PRIME</span>
+        <span class="w-home">HOME</span>
+        <span class="w-badge">SERVICES</span>
+      </div>
+      <div class="w-tag" data-en="Calgary's Home Solutions Experts" data-es="Expertos en Soluciones para el Hogar"></div>
+    </a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#services"   data-en="Services"     data-es="Servicios"></a></li>
+        <li><a href="#why"        data-en="Why Us"        data-es="Por Qué Nosotros"></a></li>
+        <li><a href="#how"        data-en="How It Works"  data-es="Cómo Funciona"></a></li>
+        <li><a href="#pricing"    data-en="Pricing"       data-es="Precios"></a></li>
+        <li><a href="#area"       data-en="Service Area"  data-es="Área de Servicio"></a></li>
+        <li><a href="#careers"    data-en="Work With Us"  data-es="Trabaja Con Nosotros"></a></li>
+        <li><a href="#contact" class="nav-cta" data-en="Book Now" data-es="Reservar Ahora"></a></li>
+      </ul>
+      <div class="lang-toggle">
+        <button class="lang-btn" id="btn-en" onclick="setLang('en')">EN</button>
+        <div class="lang-divider"></div>
+        <button class="lang-btn" id="btn-es" onclick="setLang('es')">ES</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ── HERO ── -->
+  <section id="hero">
+    <div class="hero-bg-pattern"></div>
+    <div class="hero-grid-lines"></div>
+    <div class="hero-left">
+      <div class="hero-tag" data-en="Now serving Calgary, Brooks, Newell County &amp; Medicine Hat — Expanding Across Canada" data-es="Ahora en Calgary, Brooks, Condado de Newell y Medicine Hat — Expandiéndonos por Canadá"></div>
+      <h1 class="hero-title">
+        <span data-en="Your Home," data-es="Tu Hogar,"></span>
+        <span class="accent" data-en="Perfectly Clean." data-es="Perfectamente Limpio."></span>
+      </h1>
+      <p class="hero-sub" data-en="Professional home cleaning services by trained, trusted teams. We handle the mess so you can focus on what matters most." data-es="Servicios de limpieza profesional por equipos entrenados y de confianza. Nosotros nos encargamos del desorden para que tú te concentres en lo que más importa."></p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn-primary" data-en="Get a Free Quote →" data-es="Obtener Cotización Gratis →"></a>
+        <a href="#services" class="btn-secondary" data-en="See Services" data-es="Ver Servicios"></a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <span class="stat-num">100%</span>
+          <span class="stat-label" data-en="Satisfaction Guaranteed" data-es="Satisfacción Garantizada"></span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num" data-en="Vetted" data-es="Verificado"></span>
+          <span class="stat-label" data-en="Background-Checked Team" data-es="Equipo con Antecedentes Verificados"></span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-num">Eco</span>
+          <span class="stat-label" data-en="Safe Products" data-es="Productos Seguros"></span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-card-stack">
+        <div class="hero-main-card">
+          <div class="booking-title" data-en="Book Your Cleaning" data-es="Reserva tu Limpieza"></div>
+          <div class="booking-sub"   data-en="Fast, easy, no commitment." data-es="Rápido, fácil, sin compromiso."></div>
+          <form action="https://formspree.io/f/mlgwnwvo" method="POST">
+          <div class="form-group">
+            <div class="form-row">
+              <input class="form-input" type="text" name="firstName" data-placeholder-en="First Name" data-placeholder-es="Nombre" required>
+              <input class="form-input" type="text" name="lastName" data-placeholder-en="Last Name" data-placeholder-es="Apellido" required>
+            </div>
+            <input class="form-input" type="email" name="email" data-placeholder-en="Email Address" data-placeholder-es="Correo Electrónico" required>
+            <input class="form-input" type="tel" name="phone" data-placeholder-en="Phone Number" data-placeholder-es="Número de Teléfono" required>
+            <select class="form-input" name="service" id="hero-select" required>
+              <option value="" disabled selected data-en="Select Service" data-es="Seleccionar Servicio"></option>
+              <option data-en="Standard Cleaning"  data-es="Limpieza Estándar"></option>
+              <option data-en="Deep Cleaning"      data-es="Limpieza Profunda"></option>
+              <option data-en="Move In / Move Out" data-es="Mudanza / Entrega"></option>
+            </select>
+            <input class="form-input" type="date" name="preferredDate">
+          </div>
+          <button type="submit" class="form-submit" data-en="Request Free Quote →" data-es="Solicitar Cotización Gratis →"></button>
+          </form>
+          <div class="trust-badges">
+            <span class="trust-badge" data-en="🔒 Secure &amp; Private" data-es="🔒 Seguro y Privado"></span>
+            <span class="trust-badge" data-en="✓ No Spam"             data-es="✓ Sin Spam"></span>
+            <span class="trust-badge" data-en="⚡ Fast Response"      data-es="⚡ Respuesta Rápida"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICES ── -->
+  <section id="services">
+    <div class="section-header reveal">
+      <div class="section-tag"   data-en="What We Offer"                       data-es="Lo Que Ofrecemos"></div>
+      <h2 class="section-title"  data-en="Cleaning Services Built for Calgary Homes" data-es="Servicios de Limpieza para Hogares en Calgary"></h2>
+      <p class="section-sub"     data-en="Three specialized services designed for every situation — from regular upkeep to full deep cleaning." data-es="Tres servicios especializados para cada situación — desde mantenimiento regular hasta una limpieza profunda completa."></p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card reveal">
+        <div class="service-icon">🧹</div>
+        <h3 class="service-name" data-en="Standard Cleaning"  data-es="Limpieza Estándar"></h3>
+        <p class="service-desc"  data-en="Perfect for regular maintenance. Keep your home consistently fresh and tidy with our recurring cleaning visits." data-es="Perfecta para el mantenimiento regular. Mantén tu hogar fresco y ordenado con nuestras visitas recurrentes."></p>
+        <ul class="service-includes">
+          <li data-en="All bedrooms &amp; living areas" data-es="Habitaciones y áreas comunes"></li>
+          <li data-en="Kitchen &amp; bathrooms"         data-es="Cocina y baños"></li>
+          <li data-en="Vacuuming &amp; mopping"         data-es="Aspirado y trapeado"></li>
+          <li data-en="Dusting &amp; surface cleaning"  data-es="Desempolvado y limpieza de superficies"></li>
+          <li data-en="Weekly, bi-weekly or monthly"   data-es="Semanal, quincenal o mensual"></li>
+        </ul>
+        <div class="service-price"><span class="price-from" data-en="From" data-es="Desde"></span><span class="price-num">$120</span><span class="price-unit" data-en="/ visit" data-es="/ visita"></span></div>
+        <a href="#contact" class="btn-service" data-en="Book Now →" data-es="Reservar Ahora →"></a>
+      </div>
+
+      <div class="service-card featured reveal">
+        <div class="service-badge" data-en="Most Popular" data-es="Más Popular"></div>
+        <div class="service-icon">✨</div>
+        <h3 class="service-name" data-en="Deep Cleaning"  data-es="Limpieza Profunda"></h3>
+        <p class="service-desc"  data-en="A thorough top-to-bottom clean for homes that need extra attention. Ideal for first-time clients or seasonal refreshes." data-es="Una limpieza exhaustiva de arriba a abajo para hogares que necesitan atención extra. Ideal para nuevos clientes o limpiezas de temporada."></p>
+        <ul class="service-includes">
+          <li data-en="Everything in Standard"           data-es="Todo lo del Estándar"></li>
+          <li data-en="Inside appliances &amp; cabinets" data-es="Interior de electrodomésticos y gabinetes"></li>
+          <li data-en="Baseboards &amp; window sills"    data-es="Rodapiés y alféizares"></li>
+          <li data-en="Grout scrubbing &amp; tile detail" data-es="Frotado de juntas y detalle de azulejos"></li>
+          <li data-en="Behind &amp; under furniture"     data-es="Detrás y debajo de muebles"></li>
+        </ul>
+        <div class="service-price"><span class="price-from" data-en="From" data-es="Desde"></span><span class="price-num">$220</span><span class="price-unit" data-en="/ visit" data-es="/ visita"></span></div>
+        <a href="#contact" class="btn-service" data-en="Book Now →" data-es="Reservar Ahora →"></a>
+      </div>
+
+      <div class="service-card reveal">
+        <div class="service-icon">🏠</div>
+        <h3 class="service-name" data-en="Move In / Move Out"  data-es="Mudanza / Entrega"></h3>
+        <p class="service-desc"  data-en="Ensure your deposit back or welcome new tenants to a spotless home. Comprehensive cleaning for transitions." data-es="Asegura la devolución de tu depósito o recibe nuevos inquilinos con un hogar impecable. Limpieza completa para transiciones."></p>
+        <ul class="service-includes">
+          <li data-en="Complete deep clean"           data-es="Limpieza profunda completa"></li>
+          <li data-en="Inside all cabinets &amp; closets" data-es="Interior de todos los gabinetes y closets"></li>
+          <li data-en="Oven &amp; fridge interior"    data-es="Interior de horno y refrigerador"></li>
+          <li data-en="Window cleaning (interior)"   data-es="Limpieza de ventanas (interior)"></li>
+          <li data-en="Checklist provided"            data-es="Lista de verificación incluida"></li>
+        </ul>
+        <div class="service-price"><span class="price-from" data-en="From" data-es="Desde"></span><span class="price-num">$300</span><span class="price-unit" data-en="/ visit" data-es="/ visita"></span></div>
+        <a href="#contact" class="btn-service" data-en="Book Now →" data-es="Reservar Ahora →"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WHY CHOOSE US ── -->
+  <section id="why">
+    <div class="why-grid">
+      <div class="why-text-side">
+        <div class="section-tag reveal" data-en="Why Prime Home" data-es="Por Qué Prime Home"></div>
+        <h2 class="section-title reveal" data-en="We're Not Just Another Cleaning Company" data-es="No Somos Solo Otra Empresa de Limpieza"></h2>
+        <p class="section-sub reveal" style="text-align:left;max-width:100%;" data-en="We build specialized, high-performance teams trained for each service. When you hire us, you get experts — not generalists." data-es="Construimos equipos especializados y de alto rendimiento entrenados para cada servicio. Cuando nos contratas, obtienes expertos, no generalistas."></p>
+        <div class="why-promise reveal">
+          <div class="promise-title" data-en="🛡️ Our Promise to You" data-es="🛡️ Nuestra Promesa"></div>
+          <ul class="promise-list">
+            <li data-en="If you're not 100% satisfied, we'll re-clean for free within 24 hours." data-es="Si no estás 100% satisfecho, volvemos a limpiar gratis en 24 horas."></li>
+            <li data-en="All team members are background-checked and fully insured."             data-es="Todos los miembros del equipo tienen antecedentes verificados y seguro completo."></li>
+            <li data-en="We use eco-friendly, pet-safe, and child-safe cleaning products."       data-es="Usamos productos ecológicos, seguros para mascotas y niños."></li>
+            <li data-en="Transparent pricing — no hidden fees, ever."                            data-es="Precios transparentes — sin cargos ocultos, jamás."></li>
+          </ul>
+        </div>
+      </div>
+      <div class="why-features reveal">
+        <div class="why-card">
+          <span class="why-icon">🏆</span>
+          <div>
+            <div class="why-card-title" data-en="High-Performance Teams"  data-es="Equipos de Alto Rendimiento"></div>
+            <div class="why-card-text"  data-en="Each service area has its own dedicated, trained crew. Specialists, not generalists." data-es="Cada área de servicio tiene su propio equipo dedicado y entrenado. Especialistas, no generalistas."></div>
+          </div>
+        </div>
+        <div class="why-card">
+          <span class="why-icon">🔐</span>
+          <div class="why-card-title" data-en="Background Checked"   data-es="Antecedentes Verificados"></div>
+          <div class="why-card-text"  data-en="Every team member goes through a full background check. Your safety is non-negotiable." data-es="Cada miembro del equipo pasa por una verificación completa de antecedentes. Tu seguridad es innegociable."></div>
+        </div>
+        <div class="why-card">
+          <span class="why-icon">🌿</span>
+          <div class="why-card-title" data-en="Eco-Friendly Products" data-es="Productos Ecológicos"></div>
+          <div class="why-card-text"  data-en="Safe for kids, pets, and the planet. Premium, environmentally responsible solutions." data-es="Seguros para niños, mascotas y el planeta. Soluciones de limpieza responsables con el medio ambiente."></div>
+        </div>
+        <div class="why-card">
+          <span class="why-icon">📱</span>
+          <div class="why-card-title" data-en="Easy Online Booking" data-es="Reserva Online Fácil"></div>
+          <div class="why-card-text"  data-en="Book in under 2 minutes from your phone. We confirm within the hour." data-es="Reserva en menos de 2 minutos desde tu teléfono. Confirmamos en menos de una hora."></div>
+        </div>
+        <div class="why-card">
+          <span class="why-icon">⏰</span>
+          <div class="why-card-title" data-en="Always On Time"  data-es="Siempre Puntuales"></div>
+          <div class="why-card-text"  data-en="We respect your schedule. Our teams arrive on time and complete the job efficiently." data-es="Respetamos tu horario. Nuestros equipos llegan a tiempo y completan el trabajo con eficiencia."></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── HOW IT WORKS ── -->
+  <section id="how">
+    <div class="section-header reveal">
+      <div class="section-tag"  data-en="The Process"    data-es="El Proceso"></div>
+      <h2 class="section-title" data-en="How It Works"   data-es="Cómo Funciona"></h2>
+      <p class="section-sub"    data-en="Three simple steps to a spotless home. No hassle, no surprises." data-es="Tres pasos simples para un hogar impecable. Sin complicaciones, sin sorpresas."></p>
+    </div>
+    <div class="steps-row">
+      <div class="step reveal">
+        <div class="step-num">1</div>
+        <div class="step-emoji">📋</div>
+        <h3 class="step-title" data-en="Book Online"  data-es="Reserva en Línea"></h3>
+        <p class="step-text"   data-en="Choose your service, pick your date, and fill in your details. Get an instant confirmation and a free quote." data-es="Elige tu servicio, selecciona tu fecha e ingresa tus datos. Recibe confirmación instantánea y cotización gratis."></p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">2</div>
+        <div class="step-emoji">🧽</div>
+        <h3 class="step-title" data-en="We Clean"  data-es="Nosotros Limpiamos"></h3>
+        <p class="step-text"   data-en="Our trained team arrives on time, fully equipped. We work with precision and care." data-es="Nuestro equipo entrenado llega puntual y equipado. Trabajamos con precisión y cuidado."></p>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">3</div>
+        <div class="step-emoji">🛋️</div>
+        <h3 class="step-title" data-en="You Relax"  data-es="Tú Descansas"></h3>
+        <p class="step-text"   data-en="Come home to a spotless, fresh space. If anything isn't perfect, we'll come back — guaranteed." data-es="Llega a un hogar impecable y fresco. Si algo no está perfecto, regresamos — garantizado."></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── TESTIMONIALS ── -->
+  <section id="testimonials">
+    <div class="section-header reveal">
+      <div class="section-tag"  data-en="Client Reviews"                  data-es="Opiniones de Clientes"></div>
+      <h2 class="section-title" data-en="What Calgary Homeowners Say"     data-es="Lo Que Dicen los Clientes de Calgary"></h2>
+      <p class="section-sub"    data-en="Real reviews from real clients who trust us with their homes every week." data-es="Opiniones reales de clientes que nos confían sus hogares cada semana."></p>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text" data-en='"Prime Home Services completely transformed my house. The deep cleaning was incredible — they got into every corner. I&apos;ll never use another company."' data-es='"Prime Home Services transformó completamente mi casa. La limpieza profunda fue increíble — llegaron a cada rincón. Nunca usaré otra empresa."'></p>
+        <div class="testimonial-author">
+          <div class="author-avatar">SL</div>
+          <div><div class="author-name">Sarah L.</div><div class="author-loc">📍 Beltline, Calgary</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text" data-en='"I used their Move Out service and got my full deposit back — first time ever! Professional, on time, and incredibly thorough."' data-es='"Usé su servicio de mudanza y me devolvieron el depósito completo — ¡primera vez! Profesional, puntual e increíblemente detallado."'></p>
+        <div class="testimonial-author">
+          <div class="author-avatar">MR</div>
+          <div><div class="author-name">Marcus R.</div><div class="author-loc">📍 Kensington, Calgary</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text" data-en='"As a busy professional, having Prime come bi-weekly is a game changer. Always reliable and my home is always spotless."' data-es='"Como profesional ocupado, tener a Prime cada dos semanas es un cambio de vida. Siempre confiables y mi hogar siempre impecable."'></p>
+        <div class="testimonial-author">
+          <div class="author-avatar">JP</div>
+          <div><div class="author-name">Jennifer P.</div><div class="author-loc">📍 Mission, Calgary</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PRICING ── -->
+  <section id="pricing">
+    <div class="section-header reveal">
+      <div class="section-tag"  data-en="Transparent Pricing"      data-es="Precios Transparentes"></div>
+      <h2 class="section-title" data-en="Simple, Honest Rates"     data-es="Tarifas Simples y Honestas"></h2>
+      <p class="section-sub"    data-en="No hidden fees. No surprises. Just great cleaning at fair prices." data-es="Sin cargos ocultos. Sin sorpresas. Solo limpieza de calidad a precios justos."></p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="plan-name" data-en="Standard"  data-es="Estándar"></div>
+        <div class="plan-desc" data-en="Regular maintenance for a consistently clean home." data-es="Mantenimiento regular para un hogar siempre limpio."></div>
+        <div class="plan-price"><span class="plan-currency">$</span><span class="plan-amount">120</span><span class="plan-freq" data-en="/ visit" data-es="/ visita"></span></div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li data-en="All rooms &amp; common areas"  data-es="Todas las habitaciones y áreas comunes"></li>
+          <li data-en="Kitchen &amp; bathrooms"        data-es="Cocina y baños"></li>
+          <li data-en="Vacuum &amp; mop"               data-es="Aspirado y trapeado"></li>
+          <li data-en="Dusting &amp; surfaces"         data-es="Desempolvado y superficies"></li>
+          <li data-en="Up to 3-bedroom home"          data-es="Hasta 3 habitaciones"></li>
+        </ul>
+        <a href="#contact" class="btn-plan" data-en="Get Started" data-es="Comenzar"></a>
+      </div>
+      <div class="pricing-card popular reveal">
+        <div class="popular-tag" data-en="Most Popular" data-es="Más Popular"></div>
+        <div class="plan-name" data-en="Deep Clean"  data-es="Limpieza Profunda"></div>
+        <div class="plan-desc" data-en="Complete top-to-bottom clean for outstanding results." data-es="Limpieza completa de arriba abajo para resultados excepcionales."></div>
+        <div class="plan-price"><span class="plan-currency">$</span><span class="plan-amount">220</span><span class="plan-freq" data-en="/ visit" data-es="/ visita"></span></div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li data-en="Everything in Standard"          data-es="Todo lo del Estándar"></li>
+          <li data-en="Inside appliances &amp; cabinets" data-es="Interior de electrodomésticos"></li>
+          <li data-en="Baseboards &amp; window sills"   data-es="Rodapiés y alféizares"></li>
+          <li data-en="Grout &amp; tile detailing"      data-es="Detalle de juntas y azulejos"></li>
+          <li data-en="Under &amp; behind furniture"    data-es="Debajo y detrás de muebles"></li>
+        </ul>
+        <a href="#contact" class="btn-plan" data-en="Get Started" data-es="Comenzar"></a>
+      </div>
+      <div class="pricing-card reveal">
+        <div class="plan-name" data-en="Move In/Out"  data-es="Mudanza/Entrega"></div>
+        <div class="plan-desc" data-en="Comprehensive clean for property transitions." data-es="Limpieza integral para transiciones de propiedad."></div>
+        <div class="plan-price"><span class="plan-currency">$</span><span class="plan-amount">300</span><span class="plan-freq" data-en="/ visit" data-es="/ visita"></span></div>
+        <div class="plan-divider"></div>
+        <ul class="plan-features">
+          <li data-en="Complete deep clean"               data-es="Limpieza profunda completa"></li>
+          <li data-en="All cabinets &amp; closets"        data-es="Todos los gabinetes y closets"></li>
+          <li data-en="Oven &amp; fridge interior"        data-es="Interior de horno y refrigerador"></li>
+          <li data-en="Interior window cleaning"         data-es="Limpieza interior de ventanas"></li>
+          <li data-en="Move-out checklist included"      data-es="Lista de verificación incluida"></li>
+        </ul>
+        <a href="#contact" class="btn-plan" data-en="Get Started" data-es="Comenzar"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICE AREA ── -->
+  <section id="area">
+    <div class="area-grid">
+      <div class="area-text-side">
+        <div class="section-tag reveal"  data-en="Where We Work"         data-es="Dónde Trabajamos"></div>
+        <h2 class="section-title reveal" data-en="Proudly Serving Alberta" data-es="Sirviendo con Orgullo a Alberta"></h2>
+        <p class="section-sub reveal" style="text-align:left;max-width:100%;" data-en="We currently serve Calgary, Brooks, Newell County, and Medicine Hat. Expanding soon to Edmonton & Vancouver." data-es="Actualmente servimos Calgary, Brooks, Condado de Newell y Medicine Hat. Próximamente en Edmonton y Vancouver."></p>
+        <div class="neighborhoods reveal">
+          <div class="neighborhood" style="background:#1A4A8A;color:white;font-weight:600;">📍 Calgary</div>
+          <div class="neighborhood">Beltline</div><div class="neighborhood">Kensington</div>
+          <div class="neighborhood">Mission</div><div class="neighborhood">Bridgeland</div>
+          <div class="neighborhood">Inglewood</div><div class="neighborhood">Marda Loop</div>
+          <div class="neighborhood" style="background:#1A4A8A;color:white;font-weight:600;">📍 Brooks</div>
+          <div class="neighborhood" style="background:#1A4A8A;color:white;font-weight:600;">📍 Newell County</div>
+          <div class="neighborhood" style="background:#1A4A8A;color:white;font-weight:600;">📍 Medicine Hat</div>
+          <div class="neighborhood" style="background:#EAF2FF;color:#1A4A8A;font-weight:600;border:2px dashed #1A4A8A;">Coming Soon: Edmonton</div>
+          <div class="neighborhood" style="background:#EAF2FF;color:#1A4A8A;font-weight:600;border:2px dashed #1A4A8A;">Coming Soon: Vancouver</div>
+        </div>
+      </div>
+      <div class="map-placeholder reveal">
+        <div class="map-icon">🗺️</div>
+        <div class="map-text">Alberta, Canada</div>
+        <div class="map-sub" data-en="Calgary · Brooks · Newell County · Medicine Hat" data-es="Calgary · Brooks · Condado de Newell · Medicine Hat"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ── -->
+  <section id="contact">
+    <div class="contact-grid">
+      <div>
+        <h2 class="contact-title reveal" data-en="Ready for a Cleaner Home?" data-es="¿Listo para un Hogar más Limpio?"></h2>
+        <p class="contact-sub reveal"    data-en="Get in touch and we'll have you booked within the hour. No obligation, no pressure." data-es="Contáctanos y te agendaremos en menos de una hora. Sin compromiso, sin presión."></p>
+        <div class="contact-methods reveal">
+          <a href="tel:+14034272741" class="contact-method">
+            <div class="method-icon">📞</div>
+            <div><div class="method-label" data-en="Call Us" data-es="Llámanos"></div><div class="method-value">(403) 427-2741</div></div>
+          </a>
+          <a href="/cdn-cgi/l/email-protection#85f5f7ece8e0edeae8e0f6e0f7f3ece6e0f6e6e4e9e2e4f7fcc5e2e8e4ece9abe6eae8" class="contact-method">
+            <div class="method-icon">✉️</div>
+            <div><div class="method-label" data-en="Email Us" data-es="Escríbenos"></div><div class="method-value"><span class="__cf_email__" data-cfemail="1f6f6d76727a7770727a6c7a6d69767c7a6c7c7e73787e6d665f78727e7673317c7072">[email&#160;protected]</span></div></div>
+          </a>
+          <a href="https://maps.google.com/?q=Country+Hills+Manor+NW,+Calgary,+AB+T3K" target="_blank" class="contact-method">
+            <div class="method-icon">📍</div>
+            <div><div class="method-label" data-en="Our Office" data-es="Nuestra Oficina"></div><div class="method-value">Country Hills Manor NW, Calgary, AB T3K</div></div>
+          </a>
+          <a href="#" class="contact-method">
+            <div class="method-icon">💬</div>
+            <div><div class="method-label" data-en="WhatsApp" data-es="WhatsApp"></div><div class="method-value" data-en="Message Us Anytime" data-es="Escríbenos Cuando Quieras"></div></div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-form reveal">
+        <div class="contact-form-title" data-en="Send Us a Message" data-es="Envíanos un Mensaje"></div>
+        <form action="https://formspree.io/f/mlgwnwvo" method="POST">
+        <div class="form-group">
+          <div class="form-row">
+            <input class="form-input" type="text" name="firstName" data-placeholder-en="First Name" data-placeholder-es="Nombre" required>
+            <input class="form-input" type="text" name="lastName" data-placeholder-en="Last Name" data-placeholder-es="Apellido" required>
+          </div>
+          <input class="form-input" type="email" name="email" data-placeholder-en="Email Address" data-placeholder-es="Correo Electrónico" required>
+          <input class="form-input" type="tel" name="phone" data-placeholder-en="Phone Number" data-placeholder-es="Número de Teléfono" required>
+          <select class="form-input" name="service" id="contact-select" required>
+            <option value="" disabled selected data-en="Select Service" data-es="Seleccionar Servicio"></option>
+            <option data-en="Standard Cleaning"  data-es="Limpieza Estándar"></option>
+            <option data-en="Deep Cleaning"      data-es="Limpieza Profunda"></option>
+            <option data-en="Move In / Move Out" data-es="Mudanza / Entrega"></option>
+          </select>
+          <textarea class="form-input" name="message" data-placeholder-en="Tell us about your home (size, special requirements, etc.)" data-placeholder-es="Cuéntanos sobre tu hogar (tamaño, requisitos especiales, etc.)"></textarea>
+          <button type="submit" class="form-submit" data-en="Send Message &amp; Get Quote →" data-es="Enviar Mensaje y Obtener Cotización →"></button>
+        </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── WORK WITH US ── -->
+  <section id="careers">
+    <div class="careers-bg"></div>
+    <div class="careers-inner">
+      <div class="careers-left reveal">
+        <div class="section-tag" data-en="Join Our Team" data-es="Únete al Equipo"></div>
+        <h2 class="section-title" data-en="Work With Us" data-es="Trabaja Con Nosotros"></h2>
+        <p class="section-sub" style="text-align:left;max-width:100%;" data-en="We're always looking for motivated, reliable people to join Prime Home Services. No experience needed — we train you. Great pay, flexible hours, and a team that supports you." data-es="Siempre buscamos personas motivadas y confiables para unirse a Prime Home Services. No necesitas experiencia — nosotros te entrenamos. Buen pago, horarios flexibles y un equipo que te apoya."></p>
+
+        <div class="perks-grid">
+          <div class="perk-card">
+            <span class="perk-icon">💰</span>
+            <div class="perk-title" data-en="Competitive Pay" data-es="Buen Salario"></div>
+            <div class="perk-text" data-en="Above-average wages with tips and bonuses." data-es="Salarios por encima del promedio con propinas y bonos."></div>
+          </div>
+          <div class="perk-card">
+            <span class="perk-icon">⏰</span>
+            <div class="perk-title" data-en="Flexible Hours" data-es="Horario Flexible"></div>
+            <div class="perk-text" data-en="Full-time or part-time. You choose your schedule." data-es="Tiempo completo o parcial. Tú eliges tu horario."></div>
+          </div>
+          <div class="perk-card">
+            <span class="perk-icon">🎓</span>
+            <div class="perk-title" data-en="Full Training" data-es="Entrenamiento Completo"></div>
+            <div class="perk-text" data-en="We train you from day one. No experience needed." data-es="Te entrenamos desde el primer día. No necesitas experiencia."></div>
+          </div>
+          <div class="perk-card">
+            <span class="perk-icon">🚀</span>
+            <div class="perk-title" data-en="Grow With Us" data-es="Crece Con Nosotros"></div>
+            <div class="perk-text" data-en="Opportunities to become a team leader as we expand." data-es="Oportunidades de ser líder de equipo a medida que crecemos."></div>
+          </div>
+        </div>
+
+        <div class="positions-box reveal">
+          <div class="positions-title" data-en="🧹 Open Positions" data-es="🧹 Posiciones Abiertas"></div>
+          <div class="positions-list">
+            <div class="position-item">
+              <div class="position-name" data-en="Home Cleaning Technician" data-es="Técnico de Limpieza Residencial"></div>
+              <span class="position-badge" data-en="Hiring Now" data-es="Contratando"></span>
+            </div>
+            <div class="position-item">
+              <div class="position-name" data-en="Deep Clean Specialist" data-es="Especialista en Limpieza Profunda"></div>
+              <span class="position-badge" data-en="Hiring Now" data-es="Contratando"></span>
+            </div>
+            <div class="position-item">
+              <div class="position-name" data-en="Team Leader" data-es="Líder de Equipo"></div>
+              <span class="position-badge future" data-en="Coming Soon" data-es="Próximamente"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="careers-right reveal">
+        <div class="apply-form-card">
+          <div class="apply-form-title" data-en="Apply Now" data-es="Aplica Ahora"></div>
+          <div class="apply-form-sub" data-en="Fill in your details and attach your resume. We'll contact you within 48 hours." data-es="Completa tus datos y adjunta tu hoja de vida. Te contactaremos en 48 horas."></div>
+
+          <form action="https://formspree.io/f/xdalzljd" method="POST" enctype="multipart/form-data">
+          <div class="apply-form-body">
+            <div class="form-row-apply">
+              <div class="apply-field">
+                <label class="apply-label" data-en="First Name *" data-es="Nombre *"></label>
+                <input class="apply-input" type="text" name="firstName" data-placeholder-en="Your first name" data-placeholder-es="Tu nombre" required>
+              </div>
+              <div class="apply-field">
+                <label class="apply-label" data-en="Last Name *" data-es="Apellido *"></label>
+                <input class="apply-input" type="text" name="lastName" data-placeholder-en="Your last name" data-placeholder-es="Tu apellido" required>
+              </div>
+            </div>
+
+            <div class="apply-field">
+              <label class="apply-label" data-en="Email Address *" data-es="Correo Electrónico *"></label>
+              <input class="apply-input" type="email" name="email" data-placeholder-en="your@email.com" data-placeholder-es="tu@correo.com" required>
+            </div>
+
+            <div class="apply-field">
+              <label class="apply-label" data-en="Phone Number *" data-es="Número de Teléfono *"></label>
+              <input class="apply-input" type="tel" name="phone" data-placeholder-en="(403) 000-0000" data-placeholder-es="(403) 000-0000" required>
+            </div>
+
+            <div class="apply-field">
+              <label class="apply-label" data-en="Position Applying For *" data-es="Posición que Solicita *"></label>
+              <select class="apply-input" name="position" id="position-select" required>
+                <option value="" disabled selected data-en="Select a position" data-es="Selecciona una posición"></option>
+                <option data-en="Home Cleaning Technician" data-es="Técnico de Limpieza Residencial"></option>
+                <option data-en="Deep Clean Specialist"    data-es="Especialista en Limpieza Profunda"></option>
+                <option data-en="Team Leader"              data-es="Líder de Equipo"></option>
+              </select>
+            </div>
+
+            <div class="apply-field">
+              <label class="apply-label" data-en="Availability *" data-es="Disponibilidad *"></label>
+              <select class="apply-input" name="availability" required>
+                <option value="" disabled selected data-en="Select availability" data-es="Selecciona disponibilidad"></option>
+                <option data-en="Full-time"                    data-es="Tiempo completo"></option>
+                <option data-en="Part-time"                    data-es="Tiempo parcial"></option>
+                <option data-en="Weekends only"                data-es="Solo fines de semana"></option>
+                <option data-en="Flexible / Any"               data-es="Flexible / Cualquiera"></option>
+              </select>
+            </div>
+
+            <div class="apply-field">
+              <label class="apply-label" data-en="Tell Us About Yourself" data-es="Cuéntanos Sobre Ti"></label>
+              <textarea class="apply-input" name="message" rows="3" data-placeholder-en="Any relevant experience, why you want to join our team, languages spoken, etc." data-placeholder-es="Experiencia relevante, por qué quieres unirte a nuestro equipo, idiomas que hablas, etc."></textarea>
+            </div>
+
+            <div class="apply-field">
+              <label class="apply-label" data-en="Attach Your Resume (PDF or Word)" data-es="Adjunta tu Hoja de Vida (PDF o Word)"></label>
+              <div class="file-upload-area" id="file-drop-area">
+                <input type="file" name="resume" id="resume-upload" accept=".pdf,.doc,.docx" style="display:none">
+                <div class="file-upload-content" onclick="document.getElementById('resume-upload').click()">
+                  <div class="file-upload-icon">📄</div>
+                  <div class="file-upload-text" data-en="Click to upload or drag & drop" data-es="Clic para subir o arrastra el archivo"></div>
+                  <div class="file-upload-sub" data-en="PDF, DOC or DOCX · Max 5MB" data-es="PDF, DOC o DOCX · Máx 5MB"></div>
+                </div>
+                <div class="file-name-display" id="file-name-display"></div>
+              </div>
+            </div>
+
+            <button type="submit" class="apply-submit" data-en="Submit Application →" data-es="Enviar Solicitud →"></button>
+
+            <div class="apply-privacy" data-en="🔒 Your information is safe. We'll never share your data." data-es="🔒 Tu información está segura. Nunca compartiremos tus datos."></div>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <a href="#" class="nav-logo">
+          <div class="wordmark"><span class="w-prime">PRIME</span><span class="w-home">HOME</span><span class="w-badge">SERVICES</span></div>
+        </a>
+        <p class="footer-brand-desc" data-en="Calgary's trusted home cleaning experts. Professional, reliable, and always thorough." data-es="Los expertos de confianza en limpieza de hogares en Calgary. Profesionales, confiables y siempre detallistas."></p>
+      </div>
+      <div>
+        <div class="footer-col-title" data-en="Services"  data-es="Servicios"></div>
+        <ul class="footer-links">
+          <li><a href="#services" data-en="Standard Cleaning"  data-es="Limpieza Estándar"></a></li>
+          <li><a href="#services" data-en="Deep Cleaning"      data-es="Limpieza Profunda"></a></li>
+          <li><a href="#services" data-en="Move In / Move Out" data-es="Mudanza / Entrega"></a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title" data-en="Company"  data-es="Empresa"></div>
+        <ul class="footer-links">
+          <li><a href="#why"          data-en="About Us"     data-es="Nosotros"></a></li>
+          <li><a href="#testimonials" data-en="Reviews"      data-es="Opiniones"></a></li>
+          <li><a href="#area"         data-en="Service Area" data-es="Área de Servicio"></a></li>
+          <li><a href="#contact"      data-en="Contact"      data-es="Contacto"></a></li>
+        </ul>
+      </div>
+      <div>
+        <div class="footer-col-title" data-en="Contact"  data-es="Contacto"></div>
+        <ul class="footer-links">
+          <li><a href="tel:+14034272741">(403) 427-2741</a></li>
+          <li><a href="/cdn-cgi/l/email-protection#3e4e4c57535b5651535b4d5b4c48575d5b4d5d5f52595f4c477e59535f5752105d5153"><span class="__cf_email__" data-cfemail="c8b8baa1a5ada0a7a5adbbadbabea1abadbbaba9a4afa9bab188afa5a9a1a4e6aba7a5">[email&#160;protected]</span></a></li>
+          <li><a href="https://maps.google.com/?q=Country+Hills+Manor+NW,+Calgary,+AB+T3K" target="_blank">Country Hills Manor NW</a></li>
+          <li><a href="#">Calgary, AB T3K</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="footer-copy" data-en="© 2025 Prime Home Services. All rights reserved." data-es="© 2025 Prime Home Services. Todos los derechos reservados."></div>
+        <div style="font-size:11px;color:#7A9BBE;letter-spacing:0.08em;text-transform:uppercase;">
+          <span style="color:#C9A84C;font-weight:600;">A Vahos Group Company</span> <span style="opacity:0.5;">|</span> Calgary, Alberta, Canada
+        </div>
+      </div>
+      <div class="footer-socials">
+        <a href="#" class="social-btn">📘</a>
+        <a href="#" class="social-btn">📸</a>
+        <a href="#" class="social-btn">🐦</a>
+      </div>
+    </div>
+  </footer>
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    /* ── LANGUAGE ENGINE ── */
+    let currentLang = 'en';
+
+    function detectLang() {
+      const nav = navigator.language || navigator.userLanguage || 'en';
+      return nav.toLowerCase().startsWith('es') ? 'es' : 'en';
+    }
+
+    function applyLang(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang;
+
+      // Text nodes
+      document.querySelectorAll('[data-en]').forEach(el => {
+        const val = el.getAttribute('data-' + lang);
+        if (val !== null) el.innerHTML = val;
+      });
+
+      // Placeholders
+      document.querySelectorAll('[data-placeholder-en]').forEach(el => {
+        const val = el.getAttribute('data-placeholder-' + lang);
+        if (val !== null) el.placeholder = val;
+      });
+
+      // Select options
+      document.querySelectorAll('select option[data-en]').forEach(opt => {
+        const val = opt.getAttribute('data-' + lang);
+        if (val !== null) opt.textContent = val;
+      });
+
+      // Toggle buttons
+      document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+      document.getElementById('btn-es').classList.toggle('active', lang === 'es');
+
+      // Save preference
+      localStorage.setItem('phs-lang', lang);
+    }
+
+    function setLang(lang) { applyLang(lang); }
+
+    // Init: saved preference → browser detection → fallback en
+    const saved = localStorage.getItem('phs-lang');
+    applyLang(saved || detectLang());
+
+    /* ── NAV SCROLL ── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    /* ── SCROLL REVEAL ── */
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    /* ── FILE UPLOAD ── */
+    const resumeInput = document.getElementById('resume-upload');
+    const dropArea = document.getElementById('file-drop-area');
+    const fileDisplay = document.getElementById('file-name-display');
+
+    if (resumeInput) {
+      resumeInput.addEventListener('change', () => {
+        if (resumeInput.files.length > 0) {
+          fileDisplay.textContent = '✅ ' + resumeInput.files[0].name;
+          fileDisplay.classList.add('visible');
+          dropArea.classList.add('has-file');
+        }
+      });
+
+      dropArea.addEventListener('dragover', e => {
+        e.preventDefault();
+        dropArea.style.borderColor = 'var(--blue-accent)';
+      });
+
+      dropArea.addEventListener('dragleave', () => {
+        dropArea.style.borderColor = '#D0DDEF';
+      });
+
+      dropArea.addEventListener('drop', e => {
+        e.preventDefault();
+        dropArea.style.borderColor = '#D0DDEF';
+        if (e.dataTransfer.files.length > 0) {
+          resumeInput.files = e.dataTransfer.files;
+          fileDisplay.textContent = '✅ ' + e.dataTransfer.files[0].name;
+          fileDisplay.classList.add('visible');
+          dropArea.classList.add('has-file');
+        }
+      });
+    }
+
+    /* ── SCROLL REVEAL ── */
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver(
+      entries => entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }),
+      { threshold: 0.1 }
+    );
+    revealElements.forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
